@@ -1,0 +1,6 @@
+.navbar{
+    width: 100%;
+    background-image: linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(./images/bg-header.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+  }

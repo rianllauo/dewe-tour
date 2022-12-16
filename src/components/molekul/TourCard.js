@@ -13,8 +13,8 @@ function TourCard() {
     return (
     <div className='d-flex gap-3 justify-content-center mt-5 flex-wrap'>
         {data.map(data => (
-            <Card className='p-2' style={{ width: '18rem', position: "relative" }}>
-                <Card.Img variant="top" src={require(`../../images/data-image/${data.image}`)} />
+            <Card key={data.id} className='p-2' style={{ width: '18rem', position: "relative" }}>
+              <Card.Img variant="top" src={require(`../../images/data-image/${data.image}`)} />
                 <div className='py-1 px-2' style={{position: "absolute", top: 24, right: 0, fontSize: 14, background: "white", borderRadius: "8px" }}>{data.capacity}</div>
                 <Card.Body>
                     <Link className='text-dark' to={`/detail/${data.id}`}>{data.title}</Link>

@@ -6,6 +6,10 @@ import Main from '../components/Main'
 import Footer from '../components/Footer'
 
 function Home() {
+
+    const data = localStorage.getItem('name')
+    console.log(data)
+
     return (
         <>
             <Header/>
