@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 import userIcon from '../images/user-icon.svg'
 import bill from '../images/bill.svg'
 import logoutIcon from '../images/logout.svg'
+import journey from '../images/journey.svg'
 
 function Navbars({navStyle}) {
 
@@ -38,7 +39,9 @@ function Navbars({navStyle}) {
     <Navbar bg="none" expand="lg" className={navStyle}>
       <Container>
         <Navbar.Brand href="#home">
+          <Link to="/">
             <img src={brandIcon} alt="" width="159px"/>
+          </Link>
         </Navbar.Brand>
 
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -46,33 +49,65 @@ function Navbars({navStyle}) {
           <Nav className="w-100 d-flex justify-content-end gap-3">
            {
             user != null ? 
-            <div className='d-flex align-items-center'>
-              <p className='text-light fw-semibold mb-0 me-2'>Selamat datang <span className='text-warning fw-semibold'>{user.fullName}</span></p> 
-              <Dropdown>
-                <Dropdown.Toggle className='bg-transparent p-0' style={{border: "none"}} id="dropdown-basic">
-                  <img src={require('../images/user.png')} alt="" />
-                </Dropdown.Toggle>
 
-                <Dropdown.Menu className='px-1 py-2'>
-                  <Dropdown.Item href="#/action-1" className='mb-2 rounded d-flex align-items-center'>
-                    <Link to="/personal-information">
-                      <img src={userIcon} className="me-3" alt="" />
-                      Profile
-                    </Link>
-                  </Dropdown.Item>
-                  <Dropdown.Item href="#/action-1" className='rounded d-flex align-items-center'>
-                    <img src={bill} alt="" className="me-3" />
-                    Pay
-                  </Dropdown.Item>
-                  <div className='w-100 my-3' style={{height: "1px", background: "#ddd"}}></div>
-                  <Dropdown.Item onClick={logout} className="b-2 rounded d-flex align-items-center">
-                    <img src={logoutIcon} alt="" className="me-3" />
-                    Logout
-                  </Dropdown.Item>
-                  
-                </Dropdown.Menu>
-              </Dropdown>
-            </div>
+              // kondisi admin
+              user.admin === true ?
+              
+              <div className='d-flex align-items-center'>
+                <p className='text-light fw-semibold mb-0 me-2'>Selamat datang <span className='text-warning fw-semibold'>{user.fullName}</span></p> 
+                <Dropdown>
+                  <Dropdown.Toggle className='bg-transparent p-0' style={{border: "none"}} id="dropdown-basic">
+                    <img src={require('../images/user.png')} alt="" />
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu className='px-1 py-2'>
+                      <Dropdown.Item className='mb-2 rounded /income-tripd-flex align-items-center'>
+                      <Link to="/income-trip">
+                          <img src={journey} className="me-3" alt="" />
+                          Trip
+                      </Link>
+                      </Dropdown.Item>
+                    <div className='w-100 my-3' style={{height: "1px", background: "#ddd"}}></div>
+                    <Dropdown.Item onClick={logout} className="b-2 rounded d-flex align-items-center">
+                      <img src={logoutIcon} alt="" className="me-3" />
+                      Logout
+                    </Dropdown.Item>
+                    
+                  </Dropdown.Menu>
+                </Dropdown>
+              </div>
+
+              // kondisi user biasa
+              :
+
+              <div className='d-flex align-items-center'>
+                <p className='text-light fw-semibold mb-0 me-2'>Selamat datang <span className='text-warning fw-semibold'>{user.fullName}</span></p> 
+                <Dropdown>
+                  <Dropdown.Toggle className='bg-transparent p-0' style={{border: "none"}} id="dropdown-basic">
+                    <img src={require('../images/user.png')} alt="" />
+                  </Dropdown.Toggle>
+
+                  <Dropdown.Menu className='px-1 py-2'>
+                    <Dropdown.Item href="#/action-1" className='mb-2 rounded d-flex align-items-center'>
+                      <Link to="/personal-information">
+                        <img src={userIcon} className="me-3" alt="" />
+                        Profile
+                      </Link>
+                    </Dropdown.Item>
+                    <Dropdown.Item href="#/action-1" className='rounded d-flex align-items-center'>
+                      <img src={bill} alt="" className="me-3" />
+                      Pay
+                    </Dropdown.Item>
+                    <div className='w-100 my-3' style={{height: "1px", background: "#ddd"}}></div>
+                    <Dropdown.Item onClick={logout} className="b-2 rounded d-flex align-items-center">
+                      <img src={logoutIcon} alt="" className="me-3" />
+                      Logout
+                    </Dropdown.Item>
+                    
+                  </Dropdown.Menu>
+                </Dropdown>
+              </div>
+                                  
             : 
             <>
               <Button onClick={handleShowLogin} className='py-1 px-4 fw-semibold' style={{background: "none", border: "2px solid white", fontSize: 14}}>Login</Button>

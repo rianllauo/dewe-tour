@@ -40,7 +40,6 @@ function LoginModal({show, handleClose}) {
         handleClose()
         setError('d-none')
         
-        navigate(0)
         localStorage.setItem('user', JSON.stringify(user))
         
         Swal.fire({
@@ -50,6 +49,10 @@ function LoginModal({show, handleClose}) {
           timer: 2000
         })
 
+        setInterval(() => {
+          navigate(0)
+        }, 2000)
+        
         
       }else{
         setError('')

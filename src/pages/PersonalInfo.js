@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Card , Container, Button, Table} from 'react-bootstrap'
 import navStyle from '../navbar.module.css'
+import { NumericFormat } from 'react-number-format'
 
 import Navbars from '../components/Navbars'
 
@@ -12,10 +13,11 @@ import userProfile from '../images/profile-user.png'
 import brandIcon from '../images/brand-icon-black.svg'
 import barcode from '../images/barcode.svg'
 
-function PersonalInfo() {
+function PersonalInfo({user, userTrc}) {
 
 //     const user = users
-    const user = JSON.parse(localStorage.getItem('user'))
+    
+    console.log(userTrc)
 
 
   return (
@@ -68,21 +70,23 @@ function PersonalInfo() {
                 <Container className='w-75'>
                 <div className='my-5'>
                         <h3 className='mb-5'>History Trip</h3>
-        
-                        <Card>
+
+                        {
+                        userTrc.map(item => (
+                        <Card className='mb-3'>
                             <Card.Body className='px-5'>
                                 <div className='d-flex justify-content-between align-items-center'>
                                     <img src={brandIcon} alt="" />
                                     <div className='d-flex flex-column justify-content-center text-end'>
                                         <h3 className='m-0'>Booking</h3>
-                                        <p className='m-0' style={{color: "#999"}}><span style={{color: "#878787", fontWeight: "600"}}>Saturday</span>, 22 Juy 2020</p>
+                                        <p className='m-0' style={{color: "#999"}}>{item.date}</p>
                                     </div>
                                 </div>
         
                                 <div className='mt-5 d-flex justify-content-between align-items-start'>
                                     <div >
-                                        <h5>6D/4N Fun Tassie Vacation</h5>
-                                        <p style={{color: "#959595"}}>Australia</p>
+                                        <h5>{item.title}</h5>
+                                        <p style={{color: "#959595"}}>{item.country}</p>
         
                                         <div className='rounded mt-4' style={{width: "120px", padding: "8px", background: "#d9f99d", color: "#84cc16", fontWeight: "600", fontSize: "14px", textAlign: "center"}}>Approve</div>
                                     </div>
@@ -90,22 +94,22 @@ function PersonalInfo() {
                                     <div>
                                         <div>
                                             <h6>Date Trip</h6>
-                                            <p style={{color: "#959595"}}>26 August 2020</p>
+                                            <p style={{color: "#959595"}}>{item.dateTrip}</p>
                                         </div>
                                         <div className='mt-4'>
                                             <h6>Accomodation</h6>
-                                            <p style={{color: "#959595"}}>Hotel 4 Nights</p>
+                                            <p style={{color: "#959595"}}>{item.accomodation}</p>
                                         </div>
                                     </div>
         
                                     <div>
                                         <div>
                                             <h6>Duration</h6>
-                                            <p style={{color: "#959595"}}>6 Day 4 Night</p>
+                                            <p style={{color: "#959595"}}>{item.duration}</p>
                                         </div>
                                         <div className='mt-4'>
                                             <h6>Transporartion</h6>
-                                            <p style={{color: "#959595"}}>Qatar Airways</p>
+                                            <p style={{color: "#959595"}}>{item.transportation}</p>
                                         </div>
                                     </div>
         
@@ -132,7 +136,7 @@ function PersonalInfo() {
                                                 <td>random</td>
                                                 <td>{user.phone}</td>
                                                 <td className='fw-semibold'>QTY</td>
-                                                <td className='fw-semibold'> <span className='me-4'>:</span>1</td>
+                                                <td className='fw-semibold'> <span className='me-4'>:</span>{item.qyt}</td>
                                             </tr>
                                             <tr>
                                                 <td></td>
@@ -140,7 +144,7 @@ function PersonalInfo() {
                                                 <td></td>
                                                 <td></td>
                                                 <td className='fw-semibold'>Total</td>
-                                                <td className='fw-semibold'><span className='me-4'>:</span> 12.00.000</td>
+                                                <td className='fw-semibold'><span className='me-4'>:</span><NumericFormat value={item.price} prefix="IDR ." thousandSeparator="," displayType='text'/></td>
                                             </tr>
                                           
                                         </tbody>
@@ -150,6 +154,11 @@ function PersonalInfo() {
                                 
                             </Card.Body>
                         </Card>
+                                ))
+                            
+                        }
+        
+                        
                     </div>
                 </Container>
                     

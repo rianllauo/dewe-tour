@@ -16,18 +16,20 @@ import Footer from '../components/Footer';
 import BookModalError from '../components/molekul/BookErrorModal';
 
 
-function DetailTour({dataTour, person, setPerson, totalPrice, increment, decrement, setPrices, setTotalPrice}) {
+function DetailTour({dataTour, person, setPerson, totalPrices, increment, decrement, setPrices, setTotalPrice}) {
 
     let idTour = useParams()
-    let data = dataTour
+    // let data = dataTour
     const dataUser = JSON.parse(localStorage.getItem('user'))
 
     useEffect(() => {
-        data.map(item => {
+        dataTour.map(item => {
             if (item.id == idTour.id)
             return setPrices(item.price), setTotalPrice(item.price), setPerson(1)
         })
-    }, [])  
+    }, [])
+
+    // console.log({totalPrice})
 
     const [show, setShow] = useState(false);
 
@@ -39,7 +41,7 @@ function DetailTour({dataTour, person, setPerson, totalPrice, increment, decreme
         <>
         <Navbars navStyle={navbarStyle.navbar}/>
         <div className=''>
-            {data.map(data => {
+            {dataTour.map(data => {
                 if (data.id == idTour.id){
                     return(
                         <Container key={data.id} className='mt-5'>
@@ -49,7 +51,7 @@ function DetailTour({dataTour, person, setPerson, totalPrice, increment, decreme
                                 <Row>
                                     <Col>
                                         <div className='rounded overflow-hidden mb-4'>
-                                            <img className='w-100 ' style={{height: 360, objectFit: "cover",}} src={require(`../images/data-image/${data.image}`)} alt="" />
+                                            <img className='w-100 ' style={{height: 360, objectFit: "cover",}} src={data.image} alt="" />
                                         </div>
                                     </Col>
                                 </Row>
@@ -74,7 +76,7 @@ function DetailTour({dataTour, person, setPerson, totalPrice, increment, decreme
                                         <h5 className='fs'>Accomodation</h5>
                                         <p className='d-flex align-items-center fs-4 fw-semibold'>
                                             <img className='me-2' src={hotel} alt="" />
-                                            Hotel 4 Nights
+                                            {data.accomodation}
                                         </p>
                                     </div>
 
@@ -82,7 +84,7 @@ function DetailTour({dataTour, person, setPerson, totalPrice, increment, decreme
                                         <h5 className='fs'>Transportation</h5>
                                         <p className='d-flex align-items-center fs-4 fw-semibold'>
                                             <img className='me-2' src={plane} alt="" />
-                                            Qatar Airways
+                                            {data.transportation}
                                         </p>
                                     </div>
 
@@ -90,7 +92,7 @@ function DetailTour({dataTour, person, setPerson, totalPrice, increment, decreme
                                         <h5 className='fs'>Eat</h5>
                                         <p className='d-flex align-items-center fs-4 fw-semibold'>
                                             <img className='me-2' src={meal} alt="" />
-                                            Included as ltinerary
+                                            {data.eat}
                                         </p>
                                     </div>
 
@@ -98,7 +100,7 @@ function DetailTour({dataTour, person, setPerson, totalPrice, increment, decreme
                                         <h5 className='fs'>Duration</h5>
                                         <p className='d-flex align-items-center fs-4 fw-semibold'>
                                             <img className='me-2' src={time} alt="" />
-                                            6 Day 4 Night
+                                            {data.day} Day {data.night} Night
                                         </p>
                                     </div>
 
@@ -106,7 +108,7 @@ function DetailTour({dataTour, person, setPerson, totalPrice, increment, decreme
                                         <h5 className='fs'>Date Trip</h5>
                                         <p className='d-flex align-items-center fs-5 fw-semibold'>
                                             <img className='me-2' src={calendar} alt="" />
-                                            26 August 2020
+                                            {data.dateTrip}
                                         </p>
                                     </div>
                                 </div>
@@ -114,7 +116,7 @@ function DetailTour({dataTour, person, setPerson, totalPrice, increment, decreme
 
                             <div>
                                 <h3>Description</h3>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.  It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                                <p>{data.description}</p>
                             </div>
                             <div className='d-flex justify-content-between align-items-center'>
                                 <p style={{color: "#FFAF00", fontSize:"24px", fontWeight: "700"}}>
@@ -129,7 +131,7 @@ function DetailTour({dataTour, person, setPerson, totalPrice, increment, decreme
                             </div>
                             <div className='my-4 d-flex justify-content-between align-items-center'>
                                 <h3 className='fw-semibold'>Total: </h3>
-                                <NumericFormat value={totalPrice} displayType={'text'} thousandSeparator="," prefix={'IDR. '} style={{color: "#FFAF00", fontSize:"24px", fontWeight: "700"}} />
+                                <NumericFormat value={totalPrices} displayType={'text'} thousandSeparator="," prefix={'IDR. '} style={{color: "#FFAF00", fontSize:"24px", fontWeight: "700"}} />
                             </div>
                             <div className='w-100 d-flex justify-content-end my-4'>
                                 {
@@ -142,10 +144,10 @@ function DetailTour({dataTour, person, setPerson, totalPrice, increment, decreme
                                     
                                     :
                                     <>
-                                    <Button onClick={handleShow} variant='warning' className='text-light fw-semibold'>
-                                        Book Now
-                                    </Button>
-                                    <BookModalError show={show} handleClose={handleClose} />
+                                        <Button onClick={handleShow} variant='warning' className='text-light fw-semibold'>
+                                            Book Now
+                                        </Button>
+                                        <BookModalError show={show} handleClose={handleClose} />
                                     </>
                                     
                                 }

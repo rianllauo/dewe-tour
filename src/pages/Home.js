@@ -5,15 +5,12 @@ import Header from '../components/Header'
 import Main from '../components/Main'
 import Footer from '../components/Footer'
 
-function Home() {
-
-    const data = localStorage.getItem('name')
-    console.log(data)
+function Home({data}) {
 
     return (
         <>
-            <Header/>
-            <Main/>
+            <Header />
+            <Main data={data}/>
             <Footer/>
         </>
     )
