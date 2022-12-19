@@ -67,6 +67,18 @@ function Navbars({navStyle}) {
                           Trip
                       </Link>
                       </Dropdown.Item>
+                      <Dropdown.Item className='mb-2 rounded d-flex align-items-center'>
+                      <Link to="/transaction-list">
+                          {/* <img src={journey} className="me-3" alt="" /> */}
+                          Transaction
+                      </Link>
+                      </Dropdown.Item>
+                      <Dropdown.Item className='mb-2 rounded d-flex align-items-center'>
+                      <Link to="/user-list">
+                          {/* <img src={journey} className="me-3" alt="" /> */}
+                          List User
+                      </Link>
+                      </Dropdown.Item>
                     <div className='w-100 my-3' style={{height: "1px", background: "#ddd"}}></div>
                     <Dropdown.Item onClick={logout} className="b-2 rounded d-flex align-items-center">
                       <img src={logoutIcon} alt="" className="me-3" />
@@ -95,8 +107,10 @@ function Navbars({navStyle}) {
                       </Link>
                     </Dropdown.Item>
                     <Dropdown.Item href="#/action-1" className='rounded d-flex align-items-center'>
+                      <Link to="/payment-success">
                       <img src={bill} alt="" className="me-3" />
                       Pay
+                      </Link>
                     </Dropdown.Item>
                     <div className='w-100 my-3' style={{height: "1px", background: "#ddd"}}></div>
                     <Dropdown.Item onClick={logout} className="b-2 rounded d-flex align-items-center">

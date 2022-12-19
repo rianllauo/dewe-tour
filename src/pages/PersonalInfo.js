@@ -88,7 +88,12 @@ function PersonalInfo({user, userTrc}) {
                                         <h5>{item.title}</h5>
                                         <p style={{color: "#959595"}}>{item.country}</p>
         
-                                        <div className='rounded mt-4' style={{width: "120px", padding: "8px", background: "#d9f99d", color: "#84cc16", fontWeight: "600", fontSize: "14px", textAlign: "center"}}>Approve</div>
+                                        {
+                                          item.approve === true ?
+                                          <div className='rounded mt-4' style={{width: "max-content", padding: "10px 14px", background: "#d9f99d", color: "#84cc16", fontWeight: "600", fontSize: "14px", textAlign: "center"}}>Approve</div>
+                                          :
+                                          <div className='rounded mt-4' style={{width: "max-content", padding: "10px 14px", background: "#fef08a", color: "#eab308", fontWeight: "600", fontSize: "14px", textAlign: "center"}}>Waiting To Approve</div>
+                                        }
                                     </div>
         
                                     <div>
