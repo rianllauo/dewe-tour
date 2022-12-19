@@ -5,11 +5,12 @@ import Header from '../components/Header'
 import Main from '../components/Main'
 import Footer from '../components/Footer'
 
-function Home() {
+function Home({data}) {
+
     return (
         <>
-            <Header/>
-            <Main/>
+            <Header />
+            <Main data={data}/>
             <Footer/>
         </>
     )

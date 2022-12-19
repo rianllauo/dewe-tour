@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { NumericFormat } from 'react-number-format';
-
-import { dataTour } from '../dataTour';
+import navbarStyle from '../navbar.module.css'
+// import '../index.css'
 import { Card, Container, Navbar, Row, Col, Button } from 'react-bootstrap';
 import Navbars from '../components/Navbars';
 
@@ -12,45 +12,36 @@ import plane from "../images/plane.svg"
 import meal from "../images/meal.svg"
 import time from "../images/time.svg"
 import calendar from "../images/meal.svg"
+import Footer from '../components/Footer';
+import BookModalError from '../components/molekul/BookErrorModal';
 
 
-function DetailTour() {
+function DetailTour({dataTour, person, setPerson, totalPrices, increment, decrement, setPrices, setTotalPrice}) {
 
     let idTour = useParams()
-    const data = dataTour();
-
-    
-    let [person, setPerson] = useState(1)
-    let [price, setPrice] = useState(0)
-    let [prices, setPrices] = useState(0)
+    // let data = dataTour
+    const dataUser = JSON.parse(localStorage.getItem('user'))
 
     useEffect(() => {
-        data.map(item => {
+        dataTour.map(item => {
             if (item.id == idTour.id)
-            return setPrices(item.price), setPrice(item.price)
+            return setPrices(item.price), setTotalPrice(item.price), setPerson(1)
         })
-    }, [])  
+    }, [])
 
-    console.log(prices)  
+    // console.log({totalPrice})
+
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
 
-    function increment(){
-        setPrice(price + prices)
-        setPerson(person + 1)
-    }
-
-    function decrement(){
-        if (person > 0 ){
-            setPrice(price - prices)
-            setPerson(person - 1)
-        }
-    }
- 
     return (
         <>
-        <Navbars/>
+        <Navbars navStyle={navbarStyle.navbar}/>
         <div className=''>
-            {data.map(data => {
+            {dataTour.map(data => {
                 if (data.id == idTour.id){
                     return(
                         <Container key={data.id} className='mt-5'>
@@ -60,7 +51,7 @@ function DetailTour() {
                                 <Row>
                                     <Col>
                                         <div className='rounded overflow-hidden mb-4'>
-                                            <img className='w-100 ' style={{height: 360, objectFit: "cover",}} src={require(`../images/data-image/${data.image}`)} alt="" />
+                                            <img className='w-100 ' style={{height: 360, objectFit: "cover",}} src={data.image} alt="" />
                                         </div>
                                     </Col>
                                 </Row>
@@ -85,7 +76,7 @@ function DetailTour() {
                                         <h5 className='fs'>Accomodation</h5>
                                         <p className='d-flex align-items-center fs-4 fw-semibold'>
                                             <img className='me-2' src={hotel} alt="" />
-                                            Hotel 4 Nights
+                                            {data.accomodation}
                                         </p>
                                     </div>
 
@@ -93,7 +84,7 @@ function DetailTour() {
                                         <h5 className='fs'>Transportation</h5>
                                         <p className='d-flex align-items-center fs-4 fw-semibold'>
                                             <img className='me-2' src={plane} alt="" />
-                                            Qatar Airways
+                                            {data.transportation}
                                         </p>
                                     </div>
 
@@ -101,7 +92,7 @@ function DetailTour() {
                                         <h5 className='fs'>Eat</h5>
                                         <p className='d-flex align-items-center fs-4 fw-semibold'>
                                             <img className='me-2' src={meal} alt="" />
-                                            Included as ltinerary
+                                            {data.eat}
                                         </p>
                                     </div>
 
@@ -109,7 +100,7 @@ function DetailTour() {
                                         <h5 className='fs'>Duration</h5>
                                         <p className='d-flex align-items-center fs-4 fw-semibold'>
                                             <img className='me-2' src={time} alt="" />
-                                            6 Day 4 Night
+                                            {data.day} Day {data.night} Night
                                         </p>
                                     </div>
 
@@ -117,7 +108,7 @@ function DetailTour() {
                                         <h5 className='fs'>Date Trip</h5>
                                         <p className='d-flex align-items-center fs-5 fw-semibold'>
                                             <img className='me-2' src={calendar} alt="" />
-                                            26 August 2020
+                                            {data.dateTrip}
                                         </p>
                                     </div>
                                 </div>
@@ -125,33 +116,50 @@ function DetailTour() {
 
                             <div>
                                 <h3>Description</h3>
-                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.  It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                                <p>{data.description}</p>
                             </div>
                             <div className='d-flex justify-content-between align-items-center'>
                                 <p style={{color: "#FFAF00", fontSize:"24px", fontWeight: "700"}}>
-                                    <NumericFormat value={`${data.price}`} displayType={'text'} thousandSeparator="," prefix={'IDR. '} style={{color: "#FFAF00", fontSize:"24px", fontWeight: "700"}} />
+                                    <NumericFormat className='me-2' value={`${data.price}`} displayType={'text'} thousandSeparator="," prefix={'IDR. '} style={{color: "#FFAF00", fontSize:"24px", fontWeight: "700"}} />
                                      / person
                                 </p>
                                 <div className='d-flex align-items-center justify-content-center'>
-                                    <Button onClick={() => decrement(data.price)} variant='warning' className='text-light fs-3 py-0'>-</Button>
+                                    <Button onClick={() => decrement()} variant='warning' className='text-light fs-3 py-0'>-</Button>
                                     <p className='m-0 p-4'>{person}</p>
-                                    <Button onClick={() => increment(data.price)} variant='warning' className='text-light fs-3 py-0'>+</Button>
+                                    <Button onClick={() => increment()} variant='warning' className='text-light fs-3 py-0'>+</Button>
                                 </div>
                             </div>
                             <div className='my-4 d-flex justify-content-between align-items-center'>
                                 <h3 className='fw-semibold'>Total: </h3>
-                                <NumericFormat value={price} displayType={'text'} thousandSeparator="," prefix={'IDR. '} style={{color: "#FFAF00", fontSize:"24px", fontWeight: "700"}} />
- 
-                                {/* <p className='fw-semibold fs-4' style={{color: "#FFAF00"}}>IDR. 12,398,000</p> */}
+                                <NumericFormat value={totalPrices} displayType={'text'} thousandSeparator="," prefix={'IDR. '} style={{color: "#FFAF00", fontSize:"24px", fontWeight: "700"}} />
                             </div>
                             <div className='w-100 d-flex justify-content-end my-4'>
-                                <Button variant='warning' className='text-light fw-semibold'>Book Now</Button>
+                                {
+                                    dataUser != null ? 
+                                    <Link to={`/payment/${data.id}`}>
+                                        <Button variant='warning' className='text-light fw-semibold'>
+                                            Book Now
+                                        </Button>
+                                    </Link>
+                                    
+                                    :
+                                    <>
+                                        <Button onClick={handleShow} variant='warning' className='text-light fw-semibold'>
+                                            Book Now
+                                        </Button>
+                                        <BookModalError show={show} handleClose={handleClose} />
+                                    </>
+                                    
+                                }
+                                
                             </div>
+                            {/* <Payment style={{display: "none"}} price={totalPri ce}/> */}
                         </Container>
                     )
                 }
                 })}
         </div>
+        <Footer />
         </>
     )
 }

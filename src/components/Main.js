@@ -8,7 +8,7 @@ import agent from '../images/agent.svg'
 import support from '../images/support.svg'
 import TourCard from './molekul/TourCard'
 
-function Main() {
+function Main({data}) {
   return (
     <main style={{background: "#E5E5E5", width: "100%", paddingBottom: "20px"}}>
         <Container className='d-flex gap-3'>
@@ -35,7 +35,22 @@ function Main() {
         </Container>
         <Container className='my-5'>
             <h1 className='text-center'>Group Tour</h1>
-            <TourCard/>
+
+            <div className='d-flex justify-content-center flex-wrap gap-4'>
+                {
+                    data.map(item => (
+                        <TourCard 
+                            id={item.id}
+                            title={item.title}
+                            image={item.image}
+                            capacity={item.capacity}
+                            country={item.country}
+                            price={item.price}
+                        />
+                    ))
+                }
+            </div>
+            
         </Container>
     </main>
   )
