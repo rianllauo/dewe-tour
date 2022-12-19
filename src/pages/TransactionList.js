@@ -12,10 +12,25 @@ function TransactionList({ user, userTrc }) {
   const [id, setId] = useState();
 
   const handleClose = () => setShow(false);
-//   const handleShow = () => {
-//     setId();
-//     setShow(true);
-//   };
+
+//     const [approve, setApprove] = useState({
+//         approve: true,
+//     })
+
+//   const approveSubmit = async(e) => {
+//     e.preventDefault()
+
+//     const data = approve
+//         await fetch(`https://63987d90044fa481d69f8389.mockapi.io/user/${user.id}/transaction`,{
+//             method: "PUT",
+//             body: JSON.stringify(data),
+//             headers: {
+//                 'Content-type': 'application/json'
+//             } 
+//         })
+        
+//   }
+
 
   const p = user.filter((x) => x.transaction != 0);
 
@@ -57,17 +72,16 @@ function TransactionList({ user, userTrc }) {
             <img src={searchIcon} alt="" />
           </Button>
         </td>
+        {/* <td>
+            <form onSubmit={approveSubmit}>
+                <Button type="submit" >Approve</Button>
+            </form>
+        </td> */}
       </tr>
     );
   });
 
-  const trcId = hasil.forEach((x) => {
-    return x.id;
-    // console.log(x.id)
-  });
-
-  console.log(id);
-
+ 
   return (
     <>
       <Navbars navStyle={navStyle.navbar} />
@@ -83,6 +97,7 @@ function TransactionList({ user, userTrc }) {
               <th>Bukti Transfer</th>
               <th>Status Payment</th>
               <th>Action</th>
+              {/* <th>Status</th> */}
             </tr>
           </thead>
 
